@@ -1,29 +1,25 @@
-name: Google Ping Barlagy
+name: Google Web Barlagy
 
-# Workflow haçan işlemeli?
 on:
   push:
-    branches: [ "main" ]  # main şahasyna kod push edilende işe düşer
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]  # main şahasyna pull request açylanda işe düşer
-  workflow_dispatch:      # GitHub paneli arkaly el bilen (manual) işletmek mümkinçiligi
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
-  ping_testi:
-    runs-on: ubuntu-latest  # Iş Ubuntu wirtual serwerinde ýerine ýetiriler
+  web_testi:
+    runs-on: ubuntu-latest
 
     steps:
-      # 1. Ädim: Repozitoridäki kody wirtual serwere göçürmek
       - name: Kody alyp gelmek
         uses: actions/checkout@v4
 
-      # 2. Ädim: Google.com-a ping ibermek
-      - name: Google.com sahypasyna ping iber
+      # Ping deregine CURL ulanýarys (Bu şowly işlär)
+      - name: Google.com sahypasyna sorag iber
         run: |
-          echo "Google serwerlerine ping iberilip başlanýar..."
-          # -c 4 komandasy jemi 4 gezek ping paketini iberer
-          ping -c 4 google.com
+          echo "Google web serwerine HTTP sorag iberilýär..."
+          curl -I https://www.google.com
 
-      # 3. Ädim: Barlag tamamlandy habary
       - name: Netije
-        run: echo "Ping barlagy üstünlikli tamamlandy!"
+        run: echo "Web barlagy üstünlikli tamamlandy!"
